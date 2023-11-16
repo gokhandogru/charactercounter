@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Character Counter</title>
+    <style>
+        /* General page styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            text-align: center;
+            width: 50%;
+            max-width: 500px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+        }
+
+        /* Material Design Input Box Style */
+        .material-input {
+            border: none;
+            border-bottom: 2px solid #9e9e9e;
+            padding: 15px 20px;
+            outline: none;
+            width: calc(100% - 40px);
+            transition: border-color 0.3s;
+            margin-top: 20px;
+        }
+        .material-input:focus {
+            border-bottom-color: #3f51b5;
+        }
+        .counter {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #616161;
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #616161;
+            font-size: 16px;
+        }
+        footer a {
+            color: #3f51b5;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="counter" class="counter">Character count: 0</div>
+        <input type="number" id="charLimit" class="material-input" value="39" oninput="updateCounter()">
+        <textarea id="inputText" class="material-input" placeholder="Type here..." oninput="updateCounter()"></textarea>
+    </div>
+
+    <footer>
+        Created by <a href="https://localization.school/" target="_blank">Localization School</a>
+    </footer>
+
+    <script>
+        function updateCounter() {
+            var inputText = document.getElementById('inputText').value;
+            var charLimit = document.getElementById('charLimit').value;
+            var counterElement = document.getElementById('counter');
+
+            counterElement.innerText = "Character count: " + inputText.length;
+
+            if (inputText.length > charLimit) {
+                counterElement.style.color = 'red';
+            } else {
+                counterElement.style.color = 'green';
+            }
+        }
+    </script>
+</body>
+</html>
