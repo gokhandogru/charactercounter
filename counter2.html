@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Counter with Moving Cat and Quote</title>
+    <!-- Import Google Material Icons and Roboto Font -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- Materialize CSS for Material Design styling -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .left-column {
+            background-color: #e0f7fa; /* Pale blue */
+        }
+        .right-column {
+            background-color: #fff3e0; /* Pale orange */
+        }
+        .card-title {
+            font-weight: bold;
+        }
+        .count {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .good {
+            color: green;
+        }
+        .bad {
+            color: red;
+        }
+        .fun-text {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .input-field input[type="number"] {
+            display: block;
+        }
+        /* Cat and Quote Animation Styles */
+        .cat-container {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            overflow: hidden;
+            margin-top: 50px;
+        }
+        .cat-and-quote {
+            position: absolute;
+            top: 40%;
+            font-size: 1.5em;
+            animation: moveCatQuote 15s linear infinite;
+            white-space: nowrap;
+        }
+        @keyframes moveCatQuote {
+            0% { left: 100%; }
+            100% { left: -100%; }
+        }
+        .cat {
+            margin-right: 10px;
+        }
+        .quote {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <!-- Left Column -->
+            <div class="col s12 m6">
+                <div class="card left-column">
+                    <div class="card-content">
+                        <span class="card-title">Enter Your Text</span>
+                        <div class="input-field">
+                            <textarea id="inputText" class="materialize-textarea" data-length="1000"></textarea>
+                            <label for="inputText">Type here...</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col s12 m6">
+                <div class="card right-column">
+                    <div class="card-content">
+                        <span class="card-title">Character Counter</span>
+                        <!-- Character Limit Input -->
+                        <div class="input-field">
+                            <input id="charLimit" type="number" value="40" min="1">
+                            <label for="charLimit">Character Limit</label>
+                        </div>
+                        <!-- Current Character Count -->
+                        <p class="count" id="charCount">Characters: 0</p>
+                        <!-- Exceeded or Good to go -->
+                        <p class="fun-text" id="statusMessage">You are good to go!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cat and Quote Animation -->
+    <div class="cat-container">
+        <div class="cat-and-quote">
+            <span class="cat" id="catEmoji">🐱</span>
+            <span class="quote">"It is nice to be alive. Look out from the window and take a deep breath. Don't limit your own character."</span>
+        </div>
+    </div>
+	   <center><footer>
+        Created by <a href="https://localization.school/" target="_blank">Localization School</a>
+    </footer></center>
+
+    <!-- Import jQuery and Materialize JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+    <!-- Materialize JS for interactive components -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Materialize components
+            M.updateTextFields();
+
+            var inputText = document.getElementById('inputText');
+            var charLimit = document.getElementById('charLimit');
+            var charCount = document.getElementById('charCount');
+            var statusMessage = document.getElementById('statusMessage');
+
+            function updateCount() {
+                var limit = parseInt(charLimit.value) || 0;
+                var textLength = inputText.value.length;
+                charCount.textContent = 'Characters: ' + textLength;
+
+                if (textLength > limit) {
+                    charCount.classList.remove('good');
+                    charCount.classList.add('bad');
+                    statusMessage.textContent = 'You have exceeded by ' + (textLength - limit) + ' characters.';
+                    statusMessage.classList.add('bad');
+                    statusMessage.classList.remove('good');
+                } else {
+                    charCount.classList.add('good');
+                    charCount.classList.remove('bad');
+                    statusMessage.textContent = 'You are good to go!';
+                    statusMessage.classList.add('good');
+               
